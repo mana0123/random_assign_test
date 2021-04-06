@@ -17,7 +17,7 @@ jobs:
         run: |
           reviewer_count=$(cat ${{ github.event_path }} | jq '.pull_request.requested_reviewers | length')
           if [[ 0 == $reviewer_count ]]; then
-            reviewers=$(echo "\"${REVIEWERS// /}\"")
+            reviewers=$(echo "\"${REVIEWERS// /}\"" | jq 'split(",")')
             curl -X POST \
                  -H "Content-Type: application/json" \
                  -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
