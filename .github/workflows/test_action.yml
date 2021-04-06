@@ -21,5 +21,5 @@ jobs:
                  -H "Content-Type: application/json" \
                  -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                  -d "{ \"reviewers\": ${REVIEWERS} }" \
-                 https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/requested_reviewers
+                 https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/requested_reviewers
           fi
