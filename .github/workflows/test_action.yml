@@ -1,0 +1,26 @@
+# Workflowの名前 (任意の名前でOK)
+name: 'dependabot random assign'
+
+# どのイベントが発生したときにWorkflowを実行するかを指定
+# 今回はPull Requestイベントのときのみ実行
+on: 
+  pull_request:
+    types: opened
+    tags: 'dependencies'
+
+jobs:
+  assign-dependabot-reviews:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set assignees
+        env:
+          ASSIGNEES_TEAM: mana0123
+        run: |
+          assignee_count=$(cat ${{ github.event_path }} | jq '.pull_request.assignees | length')
+          if [[ 0 == $assignee_count ]]; then
+            curl -X POST \
+                 -H "Content-Type: application/json" \
+                 -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                 -d "{ \"assignees\": $ASSIGNEES_TEAM }" \
+                 https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/assignees
+          fi
