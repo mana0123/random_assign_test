@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Set reviewer
         env:
-          REVIEWERS: mana0123
+          REVIEWERS: "mana0123"
         run: |
           reviewer_count=$(cat ${{ github.event_path }} | jq '.pull_request.requested_reviewers | length')
           if [[ 0 == $reviewer_count ]]; then
