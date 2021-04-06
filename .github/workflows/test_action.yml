@@ -6,7 +6,7 @@ name: 'dependabot random assign'
 on: 
   pull_request:
     types: opened
-    tags: 'dependencies'
+    tags: dependencies
 
 jobs:
   assign-dependabot-reviewer:
