@@ -16,10 +16,10 @@ jobs:
           REVIEWERS: mana0123
         run: |
           reviewer_count=$(cat ${{ github.event_path }} | jq '.pull_request.requested_reviewers | length')
-          if [[ 0 == ${reviewer_count} ]]; then
+          if [[ 0 == $reviewer_count ]]; then
             curl -X POST \
                  -H "Content-Type: application/json" \
                  -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-                 -d "{ \"reviewers\": ${REVIEWERS} }" \
+                 -d "{ \"reviewers\": $reviewers }" \
                  https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/requested_reviewers
           fi
