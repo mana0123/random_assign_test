@@ -5,7 +5,6 @@ name: 'dependabot random assign'
 # 今回はPull Requestイベントのときのみ実行
 on: 
   pull_request:
-    types: opened
     tags:
       - dependencies
 
